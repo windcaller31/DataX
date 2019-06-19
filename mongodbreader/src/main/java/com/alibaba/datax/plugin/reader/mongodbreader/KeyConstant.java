@@ -4,6 +4,8 @@ package com.alibaba.datax.plugin.reader.mongodbreader;
  * Created by jianying.wcj on 2015/3/17 0017.
  */
 public class KeyConstant {
+	//直接转化为字符串类型
+	public static final String BIG_STRING_TYPE = "bigString";
     /**
      * 数组类型
      */
@@ -93,5 +95,10 @@ public class KeyConstant {
 
     public static boolean isDocumentType(String type) {
         return type.startsWith(DOCUMENT_TYPE);
+    }
+    
+    //判断是否为BIGString类型
+    public static boolean isBIG_STRING_TYPEType(String type) {
+        return type.startsWith(BIG_STRING_TYPE);
     }
 }

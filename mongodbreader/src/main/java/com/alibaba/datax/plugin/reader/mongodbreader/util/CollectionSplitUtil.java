@@ -138,7 +138,7 @@ public class CollectionSplitUtil {
             MongoCollection<Document> col = database.getCollection(collName);
 
             for (int i = 0; i < splitPointCount; i++) {
-                Document doc = col.find().skip(skipCount).limit(chunkDocCount).first();
+                Document doc = col.find().sort(new Document("_id",1)).skip(skipCount).limit(chunkDocCount).first();
                 Object id = doc.get(KeyConstant.MONGO_PRIMARY_ID);
                 if (isObjectId) {
                     ObjectId oid = (ObjectId)id;

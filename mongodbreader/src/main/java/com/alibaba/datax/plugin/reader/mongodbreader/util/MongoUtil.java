@@ -10,9 +10,7 @@ import com.alibaba.datax.common.util.Configuration;
 import com.alibaba.datax.plugin.reader.mongodbreader.KeyConstant;
 import com.alibaba.datax.plugin.reader.mongodbreader.MongoDBReaderErrorCode;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
+import com.mongodb.*;
 
 /**
  * Created by jianying.wcj on 2015/3/17 0017.
@@ -44,8 +42,9 @@ public class MongoUtil {
             throw DataXException.asDataXException(MongoDBReaderErrorCode.ILLEGAL_VALUE,"不合法参数");
         }
         try {
+            MongoClientOptions options = new MongoClientOptions.Builder().readPreference(ReadPreference.secondary()).build();
             MongoCredential credential = MongoCredential.createCredential(userName, database, password.toCharArray());
-            return new MongoClient(parseServerAddress(addressList), Arrays.asList(credential));
+            return new MongoClient(parseServerAddress(addressList), Arrays.asList(credential),options);
 
         } catch (UnknownHostException e) {
             throw DataXException.asDataXException(MongoDBReaderErrorCode.ILLEGAL_ADDRESS,"不合法的地址");
